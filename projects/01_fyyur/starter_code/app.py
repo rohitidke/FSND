@@ -213,7 +213,7 @@ def delete_venue(venue_id):
   finally:
     db.session.close()
 
-  return render_template('pages/home.html')
+  return json.dumps({"message":"successfully deleted"})
 
 #  Artists
 #  ----------------------------------------------------------------
