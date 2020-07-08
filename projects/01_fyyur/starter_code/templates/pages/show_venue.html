@@ -41,6 +41,9 @@
 			<i class="fas fa-moon"></i> Not currently seeking talent
 		</p>
 		{% endif %}
+		<h4>
+			<a href="/venues/{{ venue.id }}/edit"><button class="btn btn-primary btn-lg">Edit</button></a>
+		</h4>
 	</div>
 	<div class="col-sm-6">
 		<img src="{{ venue.image_link }}" alt="Venue Image" />
@@ -74,6 +77,15 @@
 		{% endfor %}
 	</div>
 </section>
-
+<!-- <script>
+	document.getElementById('delete-venue').onclick= function(e) {
+					console.log('event', e);
+					const venueId = e.target.dataset['id'];
+					await fetch('/venues/'+venueId, {
+						method: 'DELETE'
+					});
+				}
+</script>
+ -->
 {% endblock %}
 
