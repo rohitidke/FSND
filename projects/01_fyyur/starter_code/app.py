@@ -190,6 +190,8 @@ def create_venue_submission():
   except Exception as e:
     flash('An error occurred. Venue ' + request.form['name'] + ' could not be listed.')
     db.session.rollback()
+    print(e)
+    print(traceback.format_exc())
   finally:
     db.session.close()
 
@@ -448,6 +450,8 @@ def create_artist_submission():
   except Exception as e:
     flash('An error occurred. Artist ' + request.form['name'] + ' could not be listed.')
     db.session.rollback()
+    print(e)
+    print(traceback.format_exc())
   finally:
     db.session.close()
   return render_template('pages/home.html')

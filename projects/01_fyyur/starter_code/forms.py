@@ -122,8 +122,8 @@ class VenueForm(Form):
     )
     seeking_talent = RadioField(
         'seeking_talent', choices=[
-            (True, 'Yes'),
-            (False, 'No')], default='False')
+            ('True', 'Yes'),
+            ('False', 'No')], default='False')
 
     seeking_description = StringField(
         'seeking_description', validators=[]
