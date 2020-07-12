@@ -111,10 +111,10 @@ def create_app(test_config=None):
     Handles POST requests for creating new questions and searching questions.
     '''
     indata = json.loads(request.data)
-    question = indata.get('question', None)
-    answer = indata.get('answer', None)
-    category = indata.get('category', None)
-    difficulty = indata.get('difficulty', None)
+    question = indata.get('question', '')
+    answer = indata.get('answer', '')
+    category = indata.get('category', '')
+    difficulty = indata.get('difficulty', '')
     search = indata.get('searchTerm', None)
     # if search term exist in request body
     if search:
@@ -132,8 +132,8 @@ def create_app(test_config=None):
       # else create new question
       try:
         # check if either is not present in request body
-        if ((question is None) or (answer is None) or (difficulty is None) or (category is None)):
-          abort(422)
+        if ((question is '') or (answer is '') or (difficulty is '') or (category is '')):
+          abort(400)
         # create new question object
         new_question = Question(question = question,
                             answer = answer,
@@ -197,7 +197,7 @@ def create_app(test_config=None):
     # if not found
     if len(valid_ids)==0:
       return jsonify({
-        'success': True,
+        'success': False,
         'question': None,
         'category': category['id']
         })
