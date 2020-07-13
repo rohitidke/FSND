@@ -2,6 +2,7 @@
 __pycache__
 trivia_env
 node_modules
+venv
 
 # OS generated files #
 ######################
