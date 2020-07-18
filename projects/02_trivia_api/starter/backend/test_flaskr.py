@@ -17,8 +17,9 @@ class TriviaTestCase(unittest.TestCase):
         self.database_name = "trivia_test"
         self.username = 'rohit'
         self.password = 'nfs'
-        self.database_path = "postgres://{}:{}@{}/{}".format(self.username, self.password,\
-         'localhost:5432', self.database_name)
+        self.database_path = "postgres://{}:{}@{}/{}".format(
+                              self.username, self.password,
+                              'localhost:5432', self.database_name)
         setup_db(self.app, self.database_path)
 
         # sample question for use in tests
@@ -35,7 +36,7 @@ class TriviaTestCase(unittest.TestCase):
             self.db.init_app(self.app)
             # create all tables
             self.db.create_all()
-    
+
     def tearDown(self):
         """Executed after reach test"""
         pass
@@ -52,7 +53,6 @@ class TriviaTestCase(unittest.TestCase):
         self.assertTrue(data['categories'])
         self.assertEqual(len(data['categories']), 6)
 
-
     def test_get_questions(self):
 
         # make request and process response
@@ -68,7 +68,6 @@ class TriviaTestCase(unittest.TestCase):
         self.assertTrue(data['current_category'])
         self.assertEqual(len(data['questions']), 10)
 
-
     def test_out_of_bound_page(self):
 
         # make request and process response
@@ -79,8 +78,6 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 404)
         self.assertEqual(data['success'], False)
         self.assertEqual(data['message'], 'not found the given resource')
-
-
 
     def test_delete_question(self):
 
@@ -94,7 +91,6 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(data['success'], True)
         self.assertEqual(data['deleted_question'], question_id)
-
 
     def test_error_delete_question(self):
         # this tests if resource has already been deleted or doen't exist
@@ -117,7 +113,8 @@ class TriviaTestCase(unittest.TestCase):
         # asserions to ensure successful request
         self.assertEqual(response.status_code, 200)
         self.assertEqual(data['success'], True)
-        self.assertEqual(data['inserted_question'], self.new_question['question'])
+        self.assertEqual(data['inserted_question'],
+                         self.new_question['question'])
 
     def test_create_question(self):
 
@@ -128,8 +125,8 @@ class TriviaTestCase(unittest.TestCase):
         # asserions to ensure successful request
         self.assertEqual(response.status_code, 200)
         self.assertEqual(data['success'], True)
-        self.assertEqual(data['inserted_question'], self.new_question['question'])
-
+        self.assertEqual(data['inserted_question'],
+                         self.new_question['question'])
 
     def test_create_question_with_empty_data(self):
         new_question = {
@@ -180,7 +177,6 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data['success'], False)
         self.assertEqual(data['message'], 'Bad Request')
 
-
     def test_error_search(self):
         request_data = {
             'searchTerm': 'advdvcwaDD',
@@ -221,8 +217,8 @@ class TriviaTestCase(unittest.TestCase):
 
         # mock request data
         request_data = {
-                "quiz_category":{"id":3},
-                "previous_questions":[13,14]
+                "quiz_category": {"id": 3},
+                "previous_questions": [13, 14]
             }
 
         # make request and process response
@@ -239,12 +235,11 @@ class TriviaTestCase(unittest.TestCase):
         self.assertNotEqual(data['question']['id'], 13)
         self.assertNotEqual(data['question']['id'], 14)
 
-
     def test_get_random_question_not_found(self):
         # mock request data
         request_data = {
-                "quiz_category":{"id":3},
-                "previous_questions":[13,14,15]
+                "quiz_category": {"id": 3},
+                "previous_questions": [13, 14, 15]
             }
 
         # make request and process response
@@ -256,6 +251,7 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data['success'], False)
         self.assertFalse(data['question'])
         self.assertEqual(data['category'], 3)
+
 
 # Make the tests conveniently executable
 if __name__ == "__main__":
